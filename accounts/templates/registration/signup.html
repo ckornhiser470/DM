@@ -1,0 +1,17 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}Signup{% endblock %}</title>
+</head>
+<body>
+  <main>
+    <h2>Sign Up</h2>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Sign Up</button>
+    </form>
+
+    </main>
+</body>
+</html>
