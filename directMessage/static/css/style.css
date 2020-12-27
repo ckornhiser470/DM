@@ -132,3 +132,8 @@ p.from {
   margin-left: 20px;
   margin-bottom: 300px;
 }
+.profile_img {
+  border-radius: 50% 50% 50% 50%;
+  width: 100px;
+  height: 100px;
+}

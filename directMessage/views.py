@@ -43,14 +43,16 @@ def profile(request):
 
 @ login_required
 def dm(request, user):
-    user_id = User.objects.get(username=user).id
+    user = User.objects.get(username=user)
+    user_id = user.id
     this_convo = Conversations.objects.filter(
         members=request.user.id).filter(members=user_id)
     for conv in this_convo:
         convo = conv
         user_messages = Messages.objects.filter(conversation=convo)
     return render(request, "directMessage/dm.html", {
-        'to':  User.objects.get(username=user),
+        # 'to':  User.objects.get(username=user),
+        'to': Profile.objects.get(profile=user),
         'conv': user_messages
     })
 

@@ -26,17 +26,19 @@ async function displayConvos(friend) {
 
   const ul = document.querySelector('#convo_ul');
   const li = document.createElement('li');
-  li.innerHTML = `<button onclick= convoButton(this.dataset.message) class="convo_btn" data-message=${friend}>Hi</button>`;
+  li.innerHTML = `<button onclick= convoButton(this.dataset.message) class="convo_btn" data-message=${friend}>${friend}<span class="recent_message">${recentMessage}</span><span class="message_count">${messageCount}</span><span class="recent_date">${recentMessageDate}</span></button>`;
   //${friend}<span class="recent_message">${recentMessage}</span><span class="message_count">${messageCount}</span><span class="recent_date">${recentMessageDate}</span></button>`;
   ul.append(li);
 }
 //vallue"${follower}<span class="recent_message">${recentMessage}</span><p>${recentMessageDate}</p><p>${messageCount}</p>">`
 async function profilePage(currentUser) {
   console.log(currentUser);
-  document.querySelector('#user_div').innerHTML = `<h1>${currentUser.id}</h1>`;
-  // document.querySelector(
-  //   '#user_pic'
-  // ).innerHTML = `<img width="300" src="${currentUser.profile_image}"></img>`;
+  document.querySelector(
+    '#user_div'
+  ).innerHTML = `<h1>${currentUser.profile}</h1>`;
+  document.querySelector(
+    '#user_pic'
+  ).innerHTML = `<img class="profile_img" src="${currentUser.profile_image}"></img>`;
 
   await currentUser.friends.forEach(displayConvos);
   // document.querySelector('.convo_btn').forEach(convoButton));
@@ -66,7 +68,6 @@ window.onload = async (event) => {
 
   const sendMessageBtn = document.querySelector('#send_message');
   sendMessageBtn.addEventListener('click', async function () {
-    console.log('yooo');
     const messageTo = sendMessageBtn.dataset.message;
     sendMessage(messageTo);
     // window.location.reload();
