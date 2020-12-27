@@ -28,11 +28,13 @@ data = serializers.serialize('json', all_users, use_natural_foreign_keys=True)
 
 @login_required
 def index(request):
+
     test = Profile.objects.get(id=request.user.id)
     testt = User.objects.get(id=request.user.id)
     return render(request, "directMessage/index.html", {
         "test": test,
-        "testt": testt
+        "testt": testt,
+        "profiles": Profile.objects.all()
     })
 
 

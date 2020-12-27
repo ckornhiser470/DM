@@ -19,15 +19,20 @@ class Profile(models.Model):
     profile_image = models.ImageField(upload_to='profile', blank=True)
 
     def __str__(self):
-        return self.profile.email
+        return self.profile.username
 
     def serialize(self):
         return{
             "id": self.profile.profile.id,
             "profile": self.profile.username,
             "friends": [profile.profile.username for profile in self.friends.all()],
-            # "following": [user.username for user in self.following.all()],
-            "profile_image": self.profile_image.url
+            "profile_image": self.profile_image.url,
+            "email": self.profile.email,
+            "first_name": self.profile.first_name,
+            "last_name": self.profile.last_name,
+            # just shows the hour of last login
+            "last_login_hours": self.profile.last_login.strftime("%H"),
+            "last_login_minutes": self.profile.last_login.strftime("%-M")
         }
 
 # On save of Custom User, creates a profile for user

@@ -1,9 +1,70 @@
 ul {
   list-style: none;
 }
-
 a {
   color: black;
+}
+button {
+  outline: none !important;
+}
+body,
+button, input[type=text]{
+  font-family: 'Quicksand', sans-serif;
+}
+input[type=text], input[type=password]{
+  color: rgb(122, 122, 122);
+}
+#logo {
+  border: 0.3px rgb(192, 190, 190) solid;
+  border-radius: 50% 50%;
+  width: 100px;
+  height: 100px;
+}
+#logo p {
+  text-align: center;
+  padding: 5px;
+  font-size: 25px;
+  color: rgb(190, 190, 190);
+}
+#login {
+  background-color: rgba(127, 231, 250, 0.377) !important;
+  height: 100%;
+  background-image: url('../img/background.jpg');
+  background-blend-mode: multiply;
+  background-blend-mode: overlay;
+  back
+}
+#login_title {
+  color: rgb(156, 156, 156);
+  text-align: center;
+  font-size: 30px;
+}
+
+#login_form {
+  margin-top: 100px;
+  padding: 50px;
+  max-height: 800px;
+  border: 1px rgba(116, 116, 116, 0.377) solid;
+  background-color: rgb(255, 255, 255);
+  border-radius: 15%;
+}
+#login_form form {
+  color: rgb(165, 165, 165);
+}
+#login_form input {
+  border-color: rgba(153, 153, 153, 0.24);
+  border-radius: 25px;
+  outline: none;
+  width: 125px;
+}
+#id_password {
+  margin-left: 5px !important;
+}
+#login_form button {
+  border: hidden;
+  margin-left: 125px !important;
+  background-color: transparent;
+  color: blueviolet;
 }
 .center {
   position: relative; /* where the next element will be automatically positioned */
@@ -13,9 +74,26 @@ a {
     -50%
   ); /* centers image/element on "left: 50%" position */
 }
+#test {
+  background-color: purple;
+}
+#profile_head {
+  width: 300px;
+  height: 300px;
+  border: 0.5px rgb(158, 157, 157) solid;
+  border-radius: 50% 50%;
+  background-color: white;
+}
+#profile_info {
+  padding-top: 25px;
+}
+
 #user_div {
-  border: 1px black solid;
   text-align: center;
+}
+
+#last_seen {
+  font-size: 5px;
 }
 /* DM View */
 
@@ -28,7 +106,12 @@ a {
   text-align: center;
 }
 
-/* .recent_message {
+.convo_btn {
+  border: none;
+  background-color: transparent;
+}
+
+.recent_message {
   margin: 100px;
   color: rgb(170, 170, 170);
 }
@@ -38,17 +121,17 @@ a {
   color: rgb(170, 170, 170);
 }
 .message_count {
-  border: 1px rgb(255, 255, 255) solid;
+  border: 1px rgb(51, 51, 51) solid;
   border-radius: 50% 50%;
   padding: 1px;
   font-size: 10px;
-  color: white;
-  background-color: rgb(0, 183, 255); */
-/* } */
+  color: rgb(100, 100, 100);
+}
 /* DM View */
 
 #dm_div {
   max-height: 500px;
+  height: 500px;
   overflow-y: auto;
   display: flex;
   flex-direction: column-reverse;

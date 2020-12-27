@@ -4,7 +4,13 @@
     <div class="center">
     <h1>let's chat!</h1>  
     {{test}}
-    {{testt}}
+    {{testt}}<br>
+<ul>
+    {% for profile in profiles %}
+    <li><a href="{% url 'profile' %}" data-message='{{profile.id}}'> {{profile.profile.username}}</a></li>
+    {% endfor %}
+
+</ul>
     </div>
 
       {% endblock %}
