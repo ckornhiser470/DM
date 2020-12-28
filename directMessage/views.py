@@ -14,7 +14,8 @@ from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 
-# from django.forms import ModelForm
+from django.forms import ModelForm
+from django import forms
 from .models import Messages, Conversations
 from .models import Profile
 from accounts.models import User
@@ -24,23 +25,53 @@ from accounts.models import User
 
 all_users = User.objects.all()
 data = serializers.serialize('json', all_users, use_natural_foreign_keys=True)
+# admin = User.objects.get(username='admin')
+
+
+class ProfileForm(forms.Form):
+    image = forms.ImageField()
 
 
 @login_required
 def index(request):
 
-    test = Profile.objects.get(id=request.user.id)
-    testt = User.objects.get(id=request.user.id)
+    current_user = Profile.objects.get(id=request.user.id)
+    friends = current_user.friends.all()
+    profiles = Profile.objects.all()
+
     return render(request, "directMessage/index.html", {
-        "test": test,
-        "testt": testt,
-        "profiles": Profile.objects.all()
+        "current_user": current_user,
+        # "profiles": profiles,
+        "profiles": profiles.exclude(profile=request.user.id),
+        "friends": friends
     })
+
+# @ login_required
+# def add_friend(request, friend):
 
 
 @ login_required
 def profile(request):
-    return render(request, "directMessage/profile.html")
+    return render(request, "directMessage/profile.html", {
+        "form": ProfileForm(),
+    })
+
+
+@login_required
+# Saving uploaded profile picture
+def profile_pic(request):
+    if request.method == "POST":
+        form = ProfileForm(request.POST, request.FILES)
+        if form.is_valid():
+            profile = Profile.objects.get(profile=request.user)
+            profile.profile_image = form.cleaned_data['image']
+            profile.save()
+            return HttpResponseRedirect(reverse("profile"))
+    else:
+        form = ProfileForm()
+        return render(request, "directMessage/profile.html", {
+            'form': form,
+        })
 
 
 @ login_required
@@ -60,28 +91,29 @@ def dm(request, user):
 
 
 @ login_required
+@csrf_exempt
 def user_profile(request, user_id):
-    profile_user = Profile.objects.get(profile=user_id)
+    prof_user = Profile.objects.get(profile=user_id)
     if request.method == "GET":
-        return JsonResponse(profile_user.serialize(), safe=False)
-     # Update profile
-    # elif request.method == "PUT":
-    #     data = json.loads(request.body)
-    #     follower = data.get("followers")
-    #     this_follower = User.objects.get(username=follower)
+        return JsonResponse(prof_user.serialize(), safe=False)
+    #  Update profile
+    elif request.method == "PUT":
+        data = json.loads(request.body)
+        friend = data.get("friend")
+        new_friend = Profile.objects.get(profile=friend)
 
-    #     if this_follower in prof_user.followers.all():
-    #         prof_user.followers.remove(this_follower)
-    #         this_follower.following.remove(prof_user)
-    #         prof_user.save()
-    #         this_follower.save()
-    #     else:
-    #         prof_user.followers.add(this_follower)
-    #         this_follower.following.add(prof_user)
-    #         prof_user.save()
-    #         this_follower.save()
+        if new_friend in prof_user.friends.all():
+            prof_user.friends.remove(new_friend)
+            new_friend.friends.remove(prof_user)
+            prof_user.save()
+            new_friend.save()
+        else:
+            prof_user.friends.add(new_friend)
+            new_friend.friends.add(prof_user)
+            prof_user.save()
+            new_friend.save()
 
-    #     return HttpResponse(status=204)
+        return HttpResponse(status=204)
 
     # Request must be via GET or Put
     else:
@@ -90,7 +122,7 @@ def user_profile(request, user_id):
         }, status=400)
 
 
-@ csrf_exempt
+@csrf_exempt
 @ login_required
 def message(request, username):
     if request.method == "GET":

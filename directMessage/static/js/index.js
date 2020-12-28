@@ -18,24 +18,26 @@ async function getConvo(username) {
 
 async function displayConvos(friend) {
   const currentConvoObj = await getConvo(friend);
-  const currentConvo = currentConvoObj[currentConvoObj.length - 1];
-  const recentMessage = currentConvo.message;
-  const recentMessageDate = currentConvo.date;
-  const messageCount = currentConvoObj.length;
-  console.log(recentMessage);
+  if (currentConvoObj) {
+    const currentConvo = currentConvoObj[currentConvoObj.length - 1];
+    const recentMessage = currentConvo.message;
+    const recentMessageDate = currentConvo.date;
+    const messageCount = currentConvoObj.length;
+    console.log(recentMessage);
 
-  const ul = document.querySelector('#convo_ul');
-  const li = document.createElement('li');
-  li.innerHTML = `<button onclick= convoButton(this.dataset.message) class="convo_btn" data-message=${friend}>
+    const ul = document.querySelector('#convo_ul');
+    const li = document.createElement('li');
+    li.innerHTML = `<button onclick= convoButton(this.dataset.message) class="convo_btn" data-message=${friend}>
   <strong>${friend}</strong>
   <span class="recent_message">${recentMessage}</span>
   <span class="message_count">${messageCount}</span>
   <span class="recent_date">${recentMessageDate}</span>
-  </button>`;
-  //${friend}<span class="recent_message">${recentMessage}</span><span class="message_count">${messageCount}</span><span class="recent_date">${recentMessageDate}</span></button>`;
-  ul.append(li);
+  </button><hr>`;
+    ul.append(li);
+  } else {
+    document.querySelector('#no_convos').style.display = 'block';
+  }
 }
-//vallue"${follower}<span class="recent_message">${recentMessage}</span><p>${recentMessageDate}</p><p>${messageCount}</p>">`
 async function profilePage(currentUser) {
   console.log(currentUser);
   const date = new Date();
@@ -68,28 +70,21 @@ async function convoButton(m) {
   window.location = `/dm/${myFriend}`;
 }
 
-// console.log('Whats up boo');
-// const myFriend = btn.dataset.message;
-
-// const myFriend = await btn.dataset.message;
-// window.location = `/dm/${myFriend}`;
-//   //   const convo = await getConvo(btn.dataset.message);
-//   //   await directMessage(convo).then((window.location = '/dm'));
-//   // });
-// });
-
 window.onload = async (event) => {
   const currentUserBtn = document.querySelector('#current_user');
   const userName = currentUserBtn.dataset.message;
+  console.log(userName);
   const currentUser = await profileUser(userName);
+
   console.log(currentUser);
   profilePage(currentUser);
+
+  // const changePicBtn = document.querySelector('#update_img_btn')
 
   const sendMessageBtn = document.querySelector('#send_message');
   sendMessageBtn.addEventListener('click', async function () {
     const messageTo = sendMessageBtn.dataset.message;
     sendMessage(messageTo);
-    window.location.reload();
   });
 };
 
@@ -99,19 +94,47 @@ async function directMessage(convo) {
 }
 
 function sendMessage(messageTo) {
-  const messageText = document.querySelector('#message_content').value;
-  fetch(`/message/${messageTo}`, {
-    method: 'POST',
-    // credentials: 'same-origin',
-    // // headers: {
-    // //   'X-CSRFToken': getCookie('csrftoken'),
-    // //   Accept: 'application/json',
-    // //   'Content-Type': 'application/json',
-    // // },
-    body: JSON.stringify({
-      message: messageText,
-      recipient: messageTo,
-    }),
-  });
+  try {
+    const messageText = document.querySelector('#message_content').value;
+    fetch(`/message/${messageTo}`, {
+      method: 'POST',
+      // credentials: 'same-origin',
+      // // headers: {
+      // //   'X-CSRFToken': getCookie('csrftoken'),
+      // //   Accept: 'application/json',
+      // //   'Content-Type': 'application/json',
+      // // },
+      body: JSON.stringify({
+        message: messageText,
+        recipient: messageTo,
+      }),
+    });
+    window.location.reload();
+  } catch (err) {
+    console.log(err);
+  }
   // window.location.reload();
+}
+async function friendshipStatus(friend) {
+  const currentUser = document.querySelector('#current_user').dataset.message;
+  try {
+    const response = await fetch(`/user/${currentUser}`, {
+      method: 'PUT',
+      body: JSON.stringify({
+        friend,
+      }),
+    });
+    window.location.reload();
+    console.log(response);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+function changePic() {
+  document.querySelector('#update_img_btn').style.display = 'none';
+  document.querySelector('#update_form').style.display = 'block';
+}
+function reLoad() {
+  window.location.reload();
 }

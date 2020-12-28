@@ -16,7 +16,8 @@ class Profile(models.Model):
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='profile', null=True)
     friends = models.ManyToManyField(
         "Profile", related_name='friend_of', blank=True)
-    profile_image = models.ImageField(upload_to='profile', blank=True)
+    profile_image = models.ImageField(
+        upload_to='profile', blank=True, default='profile/default_img.png')
 
     def __str__(self):
         return self.profile.username

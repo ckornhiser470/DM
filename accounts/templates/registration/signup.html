@@ -1,17 +1,25 @@
-<html>
+{% load static %}
+<!DOCTYPE html>
+<html class="registration" id="signup">
 <head>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quicksand">
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+  <link rel = "icon" href = "{% static 'img/logo.png' %}"
+  type = "image/x-icon"> 
   <meta charset="utf-8">
   <title>{% block title %}Signup{% endblock %}</title>
 </head>
 <body>
   <main>
-    <h2>Sign Up</h2>
-    <form method="post">
+    <div class="dm_form center">
+      <div class="center" id="logo"><p>dM</p></div>
+      <p class="dm_form_title">Create an Account</p>
+    <form class= "center" method="post">
       {% csrf_token %}
       {{ form.as_p }}
-      <button type="submit">Sign Up</button>
+      <button class="center" type="submit">Sign Up</button>
     </form>
-
+</div>
     </main>
 </body>
 </html>

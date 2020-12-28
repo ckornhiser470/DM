@@ -1,7 +1,10 @@
 {% extends "directMessage/layout.html" %}
     {% block body %}
-    <a href="{% url 'profile' %}"> Back To Conversations</a>
-    <div></div><img class="profile_img center" src="{{to.profile_image.url}}"/></div>
+    <a id="back" href="{% url 'profile' %}"> Back To Conversations</a>
+    <div>
+        <img class="profile_img center" src="{{to.profile_image.url}}"/>
+        <h2 class="center">{{to}}</h2>
+    </div>
     <!-- <img src="../static/img/arrow.png"> -->
    <div id="dm_view">
        <div class="center" id="user_to">
@@ -29,6 +32,7 @@
         </ul>
         </div>
         </div>
+        {% csrf_token %}
         <div id='keyboard' class="center">
            <textarea id='message_content'></textarea>
             <input id='send_message' data-message="{{to.profile.username}}" type="button">
