@@ -11,7 +11,7 @@ class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
     model = User
-    list_display = ['username', 'email']
+    list_display = ['username', 'email', 'id']
     # what shows up in admin under User
 
     add_fieldsets = (

@@ -40,22 +40,27 @@ async function displayConvos(friend) {
 }
 async function profilePage(currentUser) {
   console.log(currentUser);
-  const date = new Date();
-  const hours = date.getHours() + 5;
+  console.log(document.cookie);
+  var date = new Date();
+  var hours = date.getHours() + 5;
   console.log(hours);
   console.log(currentUser.last_login_hours);
-  var lastSeen = hours - currentUser.last_login_hours;
-  if (hours === currentUser.last_login_hours) {
-    // const mins = date.getMinutes();
-    lastSeen = currentUser.last_login_minutes;
-  }
+  var hourSeen = hours - currentUser.last_login_hours;
+  // let lastSeen = hourSeen;
+  var minsSeen = date.getMinutes() - currentUser.last_login_minutes;
+  let lastSeen =
+    hourSeen === 0 ? `${minsSeen} mins ago` : `${hourSeen} hours ago`;
+
+  console.log(minsSeen);
+  console.log(lastSeen);
+  // console.log(date.getMinutes() - currentUser.last_login_minutes);
   document.querySelector(
     '#user_div'
-  ).innerHTML = `<div><h1>${currentUser.profile}</h1>
+  ).innerHTML = `<div><h1 id="current_user_h1">${currentUser.profile}</h1>
   <br>
   ${currentUser.first_name} ${currentUser.last_name}
   <br>
-  <span id="last_seen">Active ${lastSeen} hours ago</span>
+  <span id="last_seen">Active ${lastSeen}</span>
   </div>`;
   document.querySelector(
     '#user_pic'
@@ -98,12 +103,12 @@ function sendMessage(messageTo) {
     const messageText = document.querySelector('#message_content').value;
     fetch(`/message/${messageTo}`, {
       method: 'POST',
-      // credentials: 'same-origin',
-      // // headers: {
-      // //   'X-CSRFToken': getCookie('csrftoken'),
-      // //   Accept: 'application/json',
-      // //   'Content-Type': 'application/json',
-      // // },
+      credentials: 'same-origin',
+      headers: {
+        'X-CSRFToken': getCookie('csrftoken'),
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify({
         message: messageText,
         recipient: messageTo,
@@ -113,7 +118,6 @@ function sendMessage(messageTo) {
   } catch (err) {
     console.log(err);
   }
-  // window.location.reload();
 }
 async function friendshipStatus(friend) {
   const currentUser = document.querySelector('#current_user').dataset.message;
@@ -137,4 +141,20 @@ function changePic() {
 }
 function reLoad() {
   window.location.reload();
+}
+
+function getCookie(name) {
+  if (!document.cookie) {
+    return null;
+  }
+
+  const xsrfCookies = document.cookie
+    .split(';') //Cookie: <Name> = <Value> { ; <Name> = <Value> }
+    .map((c) => c.trim())
+    .filter((c) => c.startsWith(name + '='));
+
+  if (xsrfCookies.length === 0) {
+    return null;
+  }
+  return decodeURIComponent(xsrfCookies[0].split('=')[1]);
 }

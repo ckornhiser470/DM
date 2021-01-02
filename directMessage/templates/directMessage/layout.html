@@ -5,6 +5,7 @@
         <title>{% block title %}Direct Message{% endblock %}</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="csrftoken" content="{{csrf_token}}">
         <link rel=”stylesheet” href=”css/bootstrap.css”>
         <link rel=”stylesheet” href=”css/bootstrap-responsive.css”>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quicksand">
@@ -29,49 +30,16 @@
           {% block script %}
 <script src="{% static 'js/index.js' %}"></script>
 {% endblock %}
-       <!-- <nav class="navbar fixed-top navbar-expand-md navbar-light bg-light">
-           <div class='container'>
-            <a class="navbar-brand" href="#">Direct Message</a>
-          
-            <div>
-              <ul class="navbar-nav mr-auto">
-                {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a  id='current_user_profile' data-message='{{user.username}}' class="nav-link" href="#"><strong>{{ user.username }}</strong></a>
-                    </li>
-                {% endif %}
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'index' %}">Home</a>
-                </li>
-                {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" id='following_nav' href="#">Following</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id='meals_nav' href="#">Meals</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id='liked_nav' href="#">Liked</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
-                    </li>
-                {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'login' %}">Log In</a>
-                    </li>
-                    <!-- <li class="nav-item">
-                        <a class="nav-link" href="{% url 'register' %}">Register</a>
-                    </li> -->
-                <!-- {% endif %}
-              </ul>
-            </div>
-            </div>
-          </nav>
-         --> 
-
+     
             {% block body %}
             {% endblock %}
-   
+      
+            <footer>
+              <hr>
+              <div class="container">
+                <p>2020 Cassandra Kornhiser</p>
+                <!-- <img id="madebycass" src="{% static 'cassandra/img/madebycass.png' %}" alt="madebycasss" /> -->
+              </div>
+            </footer>
     </body>
 </html>

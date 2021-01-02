@@ -13,13 +13,13 @@
   <main>
     <div class="dm_form center">
       <div class="center" id="logo"><p>dM</p></div>
-      <p class="dm_form_title">Log into your account</p>
+      <p class="dm_form_title">log into your account</p>
     <form class="center"method="post">
       {% csrf_token %}
       {{ form.as_p }}
-      <button class="center" type="submit">Log In</button>
+      <button class="center" type="submit">log in</button>
     </form>
-    <p id="signup_p">Need an account?<a href="{% url 'signup' %}"> Sign Up </a></p>
+    <p id="signup_p">need an account?<a href="{% url 'signup' %}"> sign up </a></p>
     </div>
     </main>
 </body>

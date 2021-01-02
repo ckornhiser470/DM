@@ -41,13 +41,11 @@ def index(request):
 
     return render(request, "directMessage/index.html", {
         "current_user": current_user,
-        # "profiles": profiles,
-        "profiles": profiles.exclude(profile=request.user.id),
+        # prevents current user from seeing themselves or admin on index page
+        "profiles": profiles.exclude(
+            profile=request.user.id).exclude(profile=7),
         "friends": friends
     })
-
-# @ login_required
-# def add_friend(request, friend):
 
 
 @ login_required
@@ -91,8 +89,9 @@ def dm(request, user):
 
 
 @ login_required
-@csrf_exempt
+@csrf_exempt  # put wasn't working with headers using csrf token
 def user_profile(request, user_id):
+
     prof_user = Profile.objects.get(profile=user_id)
     if request.method == "GET":
         return JsonResponse(prof_user.serialize(), safe=False)
@@ -122,7 +121,6 @@ def user_profile(request, user_id):
         }, status=400)
 
 
-@csrf_exempt
 @ login_required
 def message(request, username):
     if request.method == "GET":

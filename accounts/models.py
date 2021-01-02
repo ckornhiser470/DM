@@ -12,6 +12,7 @@ from django.core import serializers
 class User(AbstractUser):
     def natural_key(self):
         return {
+            "id": self.id,
             "username": self.username,
             "email": self.email
             # "last_login": self.last_login.strftime("%H")

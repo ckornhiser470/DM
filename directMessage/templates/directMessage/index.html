@@ -16,21 +16,23 @@
 <ul class="center">
     {% for profile in profiles %}
     <li>
-                {% if profile.profile_image %}
+        <div class="index_prof">
         <img class="profile_img_index" src="{{profile.profile_image.url}}"/>
-    {% endif %}
-    {{profile.profile.username}}
+        <span class="index_prof_name">{{profile.profile.username}}</span>
+        </div>
+        <div class="index_btns">
+            {% csrf_token %} 
     {% if user.profile in profile.friends.all %}
-    friends <button class="message_btn" onclick= "convoButton(this.dataset.message)" data-message="{{profile.profile.username}}">message</button>
-    <button class="friend_btn" onclick= "friendshipStatus(this.dataset.message)" data-message="{{profile.id}}">unfriend</button>    
-</li>
+    <button class="friend_btn" onclick= "friendshipStatus(this.dataset.message)" data-message="{{profile.id}}">unfriend</button>  
+    <button class="message_btn" onclick= "convoButton(this.dataset.message)" data-message="{{profile.profile.username}}">message</button>
     {% else %}  
     {% csrf_token %} 
         <button class="friend_btn" onclick="friendshipStatus(this.dataset.message)" data-message="{{profile.id}}">add friend</button>
-        </li>
-    {% endif %}
-  
 
+    {% endif %}
+</div>    
+</li>
+<hr>
     {% endfor %}
 
 </ul>
