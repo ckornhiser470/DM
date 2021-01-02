@@ -65,6 +65,11 @@ def profile_pic(request):
             profile.profile_image = form.cleaned_data['image']
             profile.save()
             return HttpResponseRedirect(reverse("profile"))
+        else:
+            form = ProfileForm()
+        return render(request, "directMessage/profile.html", {
+            'form': form,
+        })
     else:
         form = ProfileForm()
         return render(request, "directMessage/profile.html", {

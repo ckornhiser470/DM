@@ -72,8 +72,8 @@ class Messages(models.Model):
         class Meta:
             ordering = ['-date']
 
-    # def __str__(self):
-    #     return self.date
+    def __str__(self):
+        return self.date
 
 
 class Conversations(models.Model):

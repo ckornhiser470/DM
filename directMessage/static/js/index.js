@@ -1,5 +1,3 @@
-//refactor into seperate files
-
 async function profileUser(userName) {
   const response = await fetch(`/user/${userName}`);
   const user = await response.json();
@@ -27,12 +25,13 @@ async function displayConvos(friend) {
 
     const ul = document.querySelector('#convo_ul');
     const li = document.createElement('li');
-    li.innerHTML = `<button onclick= convoButton(this.dataset.message) class="convo_btn" data-message=${friend}>
-  <strong>${friend}</strong>
-  <span class="recent_message">${recentMessage}</span>
-  <span class="message_count">${messageCount}</span>
-  <span class="recent_date">${recentMessageDate}</span>
-  </button><hr>`;
+    li.innerHTML = `<button onclick= convoButton(this.dataset.message) class="convo_btn table" data-message=${friend}>
+  <strong class="convo_friend col">${friend}</strong>
+  <p class="recent_message col">${recentMessage}</p>
+  <span class="message_count col">${messageCount}</span>
+  <span class="recent_date col">${recentMessageDate}</span>
+  <hr>
+  </button>`;
     ul.append(li);
   } else {
     document.querySelector('#no_convos').style.display = 'block';
@@ -46,7 +45,6 @@ async function profilePage(currentUser) {
   console.log(hours);
   console.log(currentUser.last_login_hours);
   var hourSeen = hours - currentUser.last_login_hours;
-  // let lastSeen = hourSeen;
   var minsSeen = date.getMinutes() - currentUser.last_login_minutes;
   let lastSeen =
     hourSeen === 0 ? `${minsSeen} mins ago` : `${hourSeen} hours ago`;
@@ -75,24 +73,6 @@ async function convoButton(m) {
   window.location = `/dm/${myFriend}`;
 }
 
-window.onload = async (event) => {
-  const currentUserBtn = document.querySelector('#current_user');
-  const userName = currentUserBtn.dataset.message;
-  console.log(userName);
-  const currentUser = await profileUser(userName);
-
-  console.log(currentUser);
-  profilePage(currentUser);
-
-  // const changePicBtn = document.querySelector('#update_img_btn')
-
-  const sendMessageBtn = document.querySelector('#send_message');
-  sendMessageBtn.addEventListener('click', async function () {
-    const messageTo = sendMessageBtn.dataset.message;
-    sendMessage(messageTo);
-  });
-};
-
 async function directMessage(convo) {
   console.log(convo);
   document.querySelector('#heyhi').innerHTML = `<p>${convo}</p`;
@@ -119,6 +99,7 @@ function sendMessage(messageTo) {
     console.log(err);
   }
 }
+
 async function friendshipStatus(friend) {
   const currentUser = document.querySelector('#current_user').dataset.message;
   try {
@@ -158,3 +139,26 @@ function getCookie(name) {
   }
   return decodeURIComponent(xsrfCookies[0].split('=')[1]);
 }
+window.onload = async (event) => {
+  const currentUserBtn = document.querySelector('#current_user');
+  const userName = currentUserBtn.dataset.message;
+  console.log(userName);
+  const currentUser = await profileUser(userName);
+
+  console.log(currentUser);
+  profilePage(currentUser);
+
+  const sendMessageBtn = document.querySelector('#send_message');
+  const messageTo = sendMessageBtn.dataset.message;
+  document
+    .querySelector('#message_content')
+    .addEventListener('keypress', function (e) {
+      if (e.key === 'Enter') {
+        console.log('hi');
+        sendMessage(messageTo);
+      }
+    });
+  sendMessageBtn.addEventListener('click', async function () {
+    sendMessage(messageTo);
+  });
+};

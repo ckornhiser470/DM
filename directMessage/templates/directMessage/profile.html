@@ -4,14 +4,16 @@
     <div id="profile_background">
       <div id="update_img">
         <button id="update_img_btn" onclick="changePic()">update profile pic</button>
-
         <div id="update_form">
-
         <form id='upload_prof_pic 'method="POST" action="{% url 'profile_pic' %}" enctype="multipart/form-data" >
           {% csrf_token %}
+          <div id="testign">
         <input id='uploaded_img' type='file' name='image'>
-        <button onclick='reLoad()'>cancel</button>
-          <input type="submit" id="photo_submit" value='Submit'>
+          </div>
+        <div id="form_btns">
+        <button onclick="reLoad()">cancel</button>
+          <input type="submit" id="photo_submit" value='submit'>
+        </div>
           </form>
           </div>
       </div>
@@ -32,7 +34,7 @@
       <h1 id="convo_h1">my conversations</h1>
   </div>
 
-  <div id="convo_ul">
+  <div id="convo_ul" class="center">
     <ul>
     </ul>
   </div>
