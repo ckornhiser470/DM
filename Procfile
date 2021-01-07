@@ -1,1 +1,1 @@
-web: gunicorn DM.wsgi—-log-file -
+web: gunicorn DM.wsgi
