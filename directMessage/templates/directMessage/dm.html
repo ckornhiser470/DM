@@ -1,18 +1,23 @@
 {% extends "directMessage/layout.html" %}
     {% block body %}
-    <a id="back" href="{% url 'profile' %}"> Back To Conversations</a>
-    <div>
+    <div id="whole_page">
+  
+    <div id="dm_header">
+        
+        <a id="back" href="{% url 'profile' %}"> Back To Conversations</a>
         <img class="profile_img center" src="{{to.profile_image.url}}"/>
         <h2 id="h2_to" class="center">{{to}}</h2>
+
     </div>
-    <hr>
+    <!-- <hr> -->
     <div id="test">
-   <div id="dm_view">
+    <div id="dm_view">
        <div class="center" id="user_to">
        </div>
         <div id='dm_div'  class="center">
-        <ul>
-        {% for message in conv %}
+            <ul>
+  
+        <!-- {% for message in conv %}
     
            {% if request.user != message.sender.profile %}
            <li class="from">
@@ -32,8 +37,10 @@
         </div>
             {% endif %}
  
-        {% endfor %}
+        {% endfor %} -->
+  
         </ul>
+   
         </div>
         </div>
         {% csrf_token %}
@@ -42,5 +49,6 @@
             <input id='send_message' data-message="{{to.profile.username}}" type="button">
         </div>
 
+    </div>
     </div>
       {% endblock %}

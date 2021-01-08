@@ -77,24 +77,35 @@ def profile_pic(request):
         })
 
 
-@ login_required
+@login_required
 def dm(request, user):
     user = User.objects.get(username=user)
-    user_id = user.id
     this_convo = Conversations.objects.filter(
-        members=request.user.id).filter(members=user_id)
+        members=request.user.id).filter(members=user.id)
+    # if this_convo is None:
+    #     new_convo = Conversations.objects.create()
+    #     new_convo.members.add(user.id)
+    #     new_convo.members.add(request.user.id)
+    #     new_convo.save()
+    #     convo = new_convo
+
+    #
     for conv in this_convo:
-        convo = conv
-        user_messages = Messages.objects.filter(conversation=convo)
-    return render(request, "directMessage/dm.html", {
-        # 'to':  User.objects.get(username=user),
-        'to': Profile.objects.get(profile=user),
-        'conv': user_messages
-    })
+        user_messages = Messages.objects.filter(conversation=conv)
+        if user_messages is None:
+            return render(request, "directMessage/dm.html", {
+                'to': Profile.objects.get(profile=user)
+            })
+        else:
+            return render(request, "directMessage/dm.html", {
+                # 'to':  User.objects.get(username=user),
+                'to': Profile.objects.get(profile=user),
+                'conv': user_messages
+            })
 
 
 @ login_required
-@csrf_exempt  # put wasn't working with headers using csrf token
+@ csrf_exempt  # put wasn't working with headers using csrf token
 def user_profile(request, user_id):
 
     prof_user = Profile.objects.get(profile=user_id)
@@ -111,11 +122,18 @@ def user_profile(request, user_id):
             new_friend.friends.remove(prof_user)
             prof_user.save()
             new_friend.save()
+
         else:
             prof_user.friends.add(new_friend)
             new_friend.friends.add(prof_user)
             prof_user.save()
             new_friend.save()
+
+            new_convo = Conversations.objects.create()
+            new_convo.members.add(new_friend.id)
+            new_convo.members.add(request.user.id)
+            new_convo.save()
+            print('hey new convo hun')
 
         return HttpResponse(status=204)
 
@@ -135,8 +153,7 @@ def message(request, username):
             this_convo = Conversations.objects.filter(
                 members=request.user.id).filter(members=user_id)
             for conv in this_convo:
-                convo = conv
-                user_messages = Messages.objects.filter(conversation=convo)
+                user_messages = Messages.objects.filter(conversation=conv)
             return JsonResponse([message.serialize() for message in user_messages], safe=False)
         else:
             new_convo = Conversations.objects.create()

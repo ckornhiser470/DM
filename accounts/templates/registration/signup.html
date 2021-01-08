@@ -17,8 +17,10 @@
     <form class= "center" method="post">
       {% csrf_token %}
       {{ form.as_p }}
-      <button class="center" type="submit">sign up</button>
-    </form>
+    <div class="center"><a id="back_to_login" href="{% url 'login' %}">back</a><button type="submit">sign up</button></div>
+    
+  </form>
+
 </div>
     </main>
 </body>

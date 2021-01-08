@@ -15,7 +15,7 @@ class Profile(models.Model):
     profile = models.OneToOneField(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='profile', null=True)
     friends = models.ManyToManyField(
-        "Profile", related_name='friend_of', blank=True)
+        'Profile', related_name='friend_of', blank=True)
     profile_image = models.ImageField(
         upload_to='profile', blank=True, default='profile/default_img.png')
 
@@ -24,16 +24,16 @@ class Profile(models.Model):
 
     def serialize(self):
         return{
-            "id": self.profile.profile.id,
-            "profile": self.profile.username,
-            "friends": [profile.profile.username for profile in self.friends.all()],
-            "profile_image": self.profile_image.url,
-            "email": self.profile.email,
-            "first_name": self.profile.first_name,
-            "last_name": self.profile.last_name,
+            'id': self.profile.profile.id,
+            'profile': self.profile.username,
+            'friends': [profile.profile.username for profile in self.friends.all()],
+            'profile_image': self.profile_image.url,
+            'email': self.profile.email,
+            'first_name': self.profile.first_name,
+            'last_name': self.profile.last_name,
             # just shows the hour of last login
-            "last_login_hours": self.profile.last_login.strftime("%H"),
-            "last_login_minutes": self.profile.last_login.strftime("%-M")
+            'last_login_hours': self.profile.last_login.strftime('%H'),
+            'last_login_minutes': self.profile.last_login.strftime('%-M')
         }
 
 # On save of Custom User, creates a profile for user
@@ -73,7 +73,9 @@ class Messages(models.Model):
             ordering = ['-date']
 
     def __str__(self):
-        return self.date
+        return_str = str(self.conversation) + \
+            str(self.date.strftime('%b %-d %Y, %-I:%M'))
+        return return_str
 
 
 class Conversations(models.Model):
@@ -86,6 +88,9 @@ class Conversations(models.Model):
             'members': [profile.profile.username for user in self.members.all()],
         }
 
-
-def __str__(self):
-    return [profile.profile.username for user in self.members.all()],
+    def __str__(self):
+        return_str = ''
+        for member in self.members.all():
+            return_str += str(member)
+            return_str += " "
+        return return_str

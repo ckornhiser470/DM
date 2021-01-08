@@ -1,3 +1,4 @@
+/* Genral Formatting/Style */
 footer hr {
   margin-top: 150px;
 }
@@ -7,6 +8,13 @@ footer p {
 }
 ul {
   list-style: none;
+}
+.no_space {
+  padding: 0%;
+  margin: 0%;
+}
+.floatleft {
+  float: left;
 }
 button {
   outline: none !important;
@@ -34,9 +42,9 @@ input[type='email'] {
   color: rgb(4, 121, 115) !important;
 }
 .registration {
-  background-color: rgba(127, 231, 250, 0.377) !important;
+  background-color: rgba(204, 209, 179, 0.753) !important;
   height: 100%;
-  background-image: url('../img/background.jpg');
+  background-image: url('../img/pattern.jpg');
   background-blend-mode: overlay;
 }
 
@@ -45,14 +53,21 @@ input[type='email'] {
   text-align: center;
   font-size: 30px;
 }
-
+#back_to_login {
+  display: inline-block;
+  text-decoration: none !important;
+  color: rgb(0, 53, 53);
+  font-size: 15px;
+  margin-right: 25px;
+}
 .dm_form {
   margin-top: 100px;
   padding: 50px;
   max-height: 800px;
-  border: 1px rgba(116, 116, 116, 0.377) solid;
+  border: 2px rgba(185, 185, 185, 0.377) solid;
   background-color: rgb(255, 255, 255);
   border-radius: 15%;
+  box-shadow: 3px 3px rgba(128, 128, 128, 0.425);
 }
 .dm_form form {
   color: rgb(165, 165, 165);
@@ -99,12 +114,12 @@ input[type='email'] {
 
 #current_user {
   font-weight: bold;
-  color: rgba(127, 231, 250);
+  color: rgb(6, 138, 138);
 }
 
 /* Index View */
 #chat {
-  color: rgba(127, 231, 250);
+  color: rgb(6, 138, 138);
 }
 #banner {
   margin-top: 100px;
@@ -131,15 +146,15 @@ input[type='email'] {
 }
 .friend_btn {
   border-radius: 25px;
-  background-color: rgb(56, 204, 230);
-  color: white;
-  border: 0.5px rgba(128, 128, 128, 0.075) solid;
+  background-color: rgb(252, 252, 252);
+  color: rgb(145, 145, 145);
+  border: 0.5px rgba(148, 148, 148, 0.432) solid;
 }
 .message_btn {
   border-radius: 25px;
   background-color: white;
-  color: rgba(127, 231, 250);
-  border: 0.5px rgba(17, 207, 198, 0.226) solid;
+  color: rgb(6, 138, 138);
+  border: 0.5px rgba(148, 148, 148, 0.432) solid;
 }
 
 .index_btns {
@@ -151,11 +166,17 @@ input[type='email'] {
 #all_user_profiles button {
   display: inline-block;
 }
+#all_user_profiles {
+  padding-left: 0%;
+}
 /* Profile View */
 #profile_background {
-  background-color: rgba(82, 141, 150, 0.274);
-  background-image: url('../img/background.jpg');
+  background-color: rgba(94, 136, 143, 0.479);
+  background-image: url('../img/pattern.jpg');
   background-blend-mode: overlay;
+  margin-top: 0%;
+  padding-top: 0%;
+  height: 100%;
 }
 #profile_head {
   width: 300px;
@@ -165,11 +186,9 @@ input[type='email'] {
   background-color: white;
 }
 #profile_info {
-  padding-top: 25px;
+  padding-top: 50px;
 }
-#update_img {
-  margin-top: 25px;
-}
+
 #update_form {
   margin-left: 50px;
   border: 1px rgba(128, 128, 128, 0.274) solid;
@@ -197,10 +216,10 @@ input[type='email'] {
   color: cadetblue;
 }
 #current_user_h1 {
-  color: rgba(40, 149, 168, 0.568);
+  color: rgb(6, 138, 138);
 }
 #convo_h1 {
-  color: rgb(78, 223, 223);
+  margin-top: 50px;
 }
 #convo_ul {
   display: block;
@@ -208,14 +227,14 @@ input[type='email'] {
   list-style: none;
   margin-top: 50px;
   border: 1px rgba(6, 131, 114, 0.24) solid;
+  border-radius: 10px;
   width: 600px;
+  padding: 25px;
 }
 #no_convos {
   display: none;
 }
-.floatleft {
-  float: left;
-}
+
 #update_img button {
   background-color: white;
   border-radius: 25px;
@@ -303,10 +322,25 @@ input::-webkit-file-upload-button {
   max-width: 500px;
 }
 /* DM View */
+#h2_to {
+  color: rgb(107, 107, 107);
+}
+#whole_page {
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.452);
+  background-image: url('../img/pattern.jpg');
+  background-blend-mode: overlay;
+}
+#dm_header {
+  background-color: rgba(161, 161, 161, 0.281);
+  border-bottom: 2px solid rgba(82, 82, 82, 0.329);
+  margin-bottom: 0%;
+}
+
 #back {
   margin-left: 100px;
   font-size: 10px;
-  color: rgb(53, 218, 218) !important;
+  color: rgb(100, 100, 100);
   text-decoration: none !important;
 }
 #dm_div {
@@ -323,6 +357,14 @@ input::-webkit-file-upload-button {
 }
 #dm_div::-webkit-scrollbar {
   display: none; /* Safari and Chrome */
+}
+#dm_div ul {
+  background-color: white;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-bottom: 0%;
+  border: 0.1px solid rgb(165, 164, 164);
+  border-radius: 5px;
 }
 p.from {
   background-color: rgba(166, 198, 201, 0.63);
@@ -388,8 +430,8 @@ li.to {
   width: 50px;
   height: 50px;
   border-color: transparent;
-  background-color: rgba(8, 240, 209, 0.692);
-  color: rgb(255, 255, 255);
+  background-color: rgba(166, 170, 170, 0.692);
+  color: rgb(117, 117, 117);
   border-radius: 50%;
   border-bottom-color: rgba(115, 121, 126, 0.171);
 }
@@ -401,13 +443,14 @@ li.to {
 }
 #keyboard {
   padding: 10px;
-  border: 2px rgba(128, 128, 128, 0.349) solid;
+  border: 2px rgba(128, 128, 128, 0.219) solid;
   height: 80px;
-  background-color: rgba(255, 255, 255, 0.212);
-  border-radius: 25px;
+  background-color: rgba(161, 161, 161, 0.281);
+  border-radius: 5px;
   max-width: 600px;
-  margin-left: 20px;
   margin-bottom: 300px;
+  width: 500px;
+  display: inline-block;
 }
 .profile_img {
   border-radius: 50% 50% 50% 50%;
@@ -417,9 +460,6 @@ li.to {
 }
 #test {
   transform: scale(0.75);
-  margin-top: -150px;
   margin-bottom: -200px;
-}
-#h2_to {
-  color: rgb(107, 107, 107);
+  margin-top: -137px;
 }

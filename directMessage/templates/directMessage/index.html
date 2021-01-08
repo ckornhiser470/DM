@@ -6,14 +6,12 @@
         <h1>hey <span id="chat">{{current_user}}</span>, let's chat!</h1>
         <p style="text-align: center;">reach out to an old friend, maybe meet someone new?</p>
     </div>  
-   <!-- {% for friend in friends %}
-    {{friend}}
-   {% endfor %} -->
+
     <hr>
   <br>
 
 <div id="all_user_profiles">
-<ul class="center">
+<ul>
     {% for profile in profiles %}
     <li>
         <div class="index_prof">
@@ -32,7 +30,6 @@
     {% endif %}
 </div>    
 </li>
-<hr>
     {% endfor %}
 
 </ul>
