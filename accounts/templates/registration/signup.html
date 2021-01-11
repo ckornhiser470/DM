@@ -1,27 +1,18 @@
-{% load static %}
-<!DOCTYPE html>
-<html class="registration" id="signup">
-<head>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quicksand">
-  <link href="{% static 'css/style.css' %}" rel="stylesheet">
-  <link rel = "icon" href = "{% static 'img/logo.png' %}"
-  type = "image/x-icon"> 
-  <meta charset="utf-8">
-  <title>{% block title %}Signup{% endblock %}</title>
-</head>
-<body>
+{% extends "registration/layout.html" %}
+{%block title %}Signup{% endblock %}
+  {% block body %}
   <main>
     <div class="dm_form center">
-      <div class="center" id="logo"><p>dM</p></div>
+      <div class="center" id="logo">
+        <p>dM</p>
+      </div>
       <p class="dm_form_title">create an account</p>
-    <form class= "center" method="post">
-      {% csrf_token %}
-      {{ form.as_p }}
-    <div class="center"><a id="back_to_login" href="{% url 'login' %}">back</a><button type="submit">sign up</button></div>
-    
-  </form>
-
-</div>
-    </main>
-</body>
-</html>
+      <form class= "center" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">sign up</button>
+      </form>
+      <a id="back_to_login" href="{% url 'login' %}">back</a>
+    </div>
+  </main>
+{% endblock %}

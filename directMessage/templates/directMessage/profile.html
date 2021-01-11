@@ -1,44 +1,38 @@
 {% extends "directMessage/layout.html" %}
-
     {% block body %}
     <div id="profile_background">
       <div id="update_img">
         <button id="update_img_btn" onclick="changePic()">update profile pic</button>
         <div id="update_form">
-        <form id='upload_prof_pic 'method="POST" action="{% url 'profile_pic' %}" enctype="multipart/form-data" >
-          {% csrf_token %}
-          <div id="testign">
-        <input id='uploaded_img' type='file' name='image'>
-          </div>
-        <div id="form_btns">
-        <button onclick="reLoad()">cancel</button>
-          <input type="submit" id="photo_submit" value='submit'>
-        </div>
+          <form id="upload_prof_pic" method="POST" action="{% url 'profile_pic' %}" enctype="multipart/form-data" >
+            {% csrf_token %}
+            <div>
+              <input id="uploaded_img" type="file" name="image">
+            </div>
+            <div id="form_btns">
+              <button onclick="reLoad()">cancel</button>
+              <input type="submit" id="photo_submit" value="submit">
+            </div>
           </form>
-          </div>
+        </div>
       </div>
     <div id= "profile_head" class="center">
-    <div id="profile_info">
-    <div id="user_pic" class="center">
-    </div>
-
-    <div id="user_div">
-    </div>
-    </div>
-  
+      <div id="profile_info">
+        <div id="user_pic" class="center">
+        </div>
+        <div id="user_div">
+        </div>
+      </div>
     </div>
   </div>
-
-<hr class="no_space">
+  <hr class="no_space">
     <div class="center">
       <h1 id="convo_h1">my conversations</h1>
-  </div>
-
-  <div id="convo_ul" class="center">
-    <ul>
-    </ul>
-  </div>
-    <div id="no_convos">
-      No conversations yet!
     </div>
+      <ul id="convo_ul" class="center">
+        <div id="no_convos">no messages yet!</div>
+
+      </ul>
+
+ 
       {% endblock %}

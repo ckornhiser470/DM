@@ -73,7 +73,8 @@ class Messages(models.Model):
             ordering = ['-date']
 
     def __str__(self):
-        return_str = str(self.conversation) + \
+        return_str = 'Sent by ' + \
+            str(self.sender.profile.username)+' on ' + \
             str(self.date.strftime('%b %-d %Y, %-I:%M'))
         return return_str
 

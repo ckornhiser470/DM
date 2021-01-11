@@ -25,34 +25,103 @@ from accounts.models import User
 
 all_users = User.objects.all()
 data = serializers.serialize('json', all_users, use_natural_foreign_keys=True)
-# admin = User.objects.get(username='admin')
 
 
 class ProfileForm(forms.Form):
     image = forms.ImageField()
 
 
+# HTML Rendering
+
 @login_required
 def index(request):
-
-    current_user = Profile.objects.get(id=request.user.id)
-    friends = current_user.friends.all()
-    profiles = Profile.objects.all()
-
     return render(request, "directMessage/index.html", {
-        "current_user": current_user,
-        # prevents current user from seeing themselves or admin on index page
-        "profiles": profiles.exclude(
-            profile=request.user.id).exclude(profile=7),
-        "friends": friends
+        "current_user": Profile.objects.get(id=request.user.id)
     })
 
 
 @ login_required
+# Returns the friends.html page
+def friends(request):
+    return render(request, "directMessage/friends.html")
+
+
+@ login_required
+# Returns the profile.html page with the form for updating the profile picture
 def profile(request):
     return render(request, "directMessage/profile.html", {
         "form": ProfileForm(),
     })
+
+
+@login_required
+# Returns dm.html already filled with recipient's name
+def dm(request, username):
+    user = User.objects.get(username=username)
+    return render(request, "directMessage/dm.html", {
+        'to': Profile.objects.get(profile=user)
+    })
+
+
+# User and Profile Functions
+@ login_required
+def users(request):
+    # Returns list of all users excluding the current user and the admin
+    all_users = Profile.objects.all().exclude(
+        profile=request.user.id).exclude(profile=7)
+    if request.method == "GET":
+        return JsonResponse([user.serialize() for user in all_users], safe=False)
+    # Request must be via GET
+    else:
+        return JsonResponse({
+            "error": "GET request required."
+        }, status=400)
+
+
+@ login_required
+@ csrf_exempt
+# put wasn't working with headers using csrf token
+def user_profile(request, username):
+    user = User.objects.get(username=username)
+    prof_user = Profile.objects.get(profile=user)
+    if request.method == "GET":
+        return JsonResponse(prof_user.serialize(), safe=False)
+    #  Update profile
+    elif request.method == "PUT":
+        data = json.loads(request.body)
+        friend = data.get("friendID")
+        new_friend = Profile.objects.get(profile=friend)
+        new_friend_username = new_friend.profile.username
+        status = ""
+
+        if new_friend in prof_user.friends.all():
+            prof_user.friends.remove(new_friend)
+            new_friend.friends.remove(prof_user)
+            prof_user.save()
+            new_friend.save()
+            Conversations.objects.filter(
+                members=request.user.id).filter(members=new_friend.id).delete()
+            statusf = "unfriended"
+
+        else:
+            prof_user.friends.add(new_friend)
+            new_friend.friends.add(prof_user)
+            prof_user.save()
+            new_friend.save()
+            statusf = "friended"
+
+            new_convo = Conversations.objects.create()
+            new_convo.members.add(new_friend.id)
+            new_convo.members.add(request.user.id)
+            new_convo.save()
+
+        return JsonResponse({"username": new_friend_username, "message": statusf}, status=200)
+
+    # Request must be via GET or Put
+    else:
+        return JsonResponse({
+            "error": "GET or PUT request required."
+        }, status=400)
 
 
 @login_required
@@ -78,71 +147,21 @@ def profile_pic(request):
 
 
 @login_required
-def dm(request, user):
-    user = User.objects.get(username=user)
-    this_convo = Conversations.objects.filter(
-        members=request.user.id).filter(members=user.id)
-    # if this_convo is None:
-    #     new_convo = Conversations.objects.create()
-    #     new_convo.members.add(user.id)
-    #     new_convo.members.add(request.user.id)
-    #     new_convo.save()
-    #     convo = new_convo
-
-    #
-    for conv in this_convo:
-        user_messages = Messages.objects.filter(conversation=conv)
-        if user_messages is None:
-            return render(request, "directMessage/dm.html", {
-                'to': Profile.objects.get(profile=user)
-            })
-        else:
-            return render(request, "directMessage/dm.html", {
-                # 'to':  User.objects.get(username=user),
-                'to': Profile.objects.get(profile=user),
-                'conv': user_messages
-            })
-
-
-@ login_required
-@ csrf_exempt  # put wasn't working with headers using csrf token
-def user_profile(request, user_id):
-
-    prof_user = Profile.objects.get(profile=user_id)
-    if request.method == "GET":
-        return JsonResponse(prof_user.serialize(), safe=False)
-    #  Update profile
-    elif request.method == "PUT":
-        data = json.loads(request.body)
-        friend = data.get("friend")
-        new_friend = Profile.objects.get(profile=friend)
-
-        if new_friend in prof_user.friends.all():
-            prof_user.friends.remove(new_friend)
-            new_friend.friends.remove(prof_user)
-            prof_user.save()
-            new_friend.save()
-
-        else:
-            prof_user.friends.add(new_friend)
-            new_friend.friends.add(prof_user)
-            prof_user.save()
-            new_friend.save()
-
-            new_convo = Conversations.objects.create()
-            new_convo.members.add(new_friend.id)
-            new_convo.members.add(request.user.id)
-            new_convo.save()
-            print('hey new convo hun')
-
-        return HttpResponse(status=204)
-
-    # Request must be via GET or Put
+def conversations(request, user):
+    # Checks if current user is a recipient or sender of a message
+    messages = []
+    profile = Profile.objects.get(profile=user)
+    for message in Messages.objects.filter(recipient=profile):
+        messages.append(message)
+    for message in Messages.objects.filter(sender=profile):
+        messages.append(message)
+    if len(messages) == 0:
+        return JsonResponse({"message": "No messages"}, safe=False)
     else:
-        return JsonResponse({
-            "error": "GET or PUT request required."
-        }, status=400)
+        return JsonResponse({"message": len(messages)}, safe=False)
 
+
+# Messaging Functions
 
 @ login_required
 def message(request, username):
@@ -180,4 +199,9 @@ def message(request, username):
             conversation=convo
         )
         new_message.save()
-        return JsonResponse({"message": "Message sent!"}, status=201)
+        return JsonResponse(new_message.serialize(), status=201)
+  # Request must be via GET or Put
+    else:
+        return JsonResponse({
+            "error": "GET or PUT request required."
+        }, status=400)
