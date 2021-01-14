@@ -1,0 +1,491 @@
+/* Genral Formatting/Style */
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 2.5rem;
+}
+footer hr {
+  margin-top: 200px;
+}
+footer p {
+  font-size: 13px;
+  color: rgb(185, 185, 185);
+}
+
+ul {
+  list-style: none;
+}
+button {
+  outline: none !important;
+}
+
+body,
+button,
+input[type='text'] {
+  font-family: 'Quicksand', sans-serif;
+}
+#logo {
+  border: 0.3px rgb(192, 190, 190) solid;
+  border-radius: 50% 50%;
+  width: 100px;
+  height: 100px;
+}
+
+#logo p {
+  text-align: center;
+  padding: 5px;
+  font-size: 25px;
+  color: rgb(4, 121, 115) !important;
+}
+.no_space {
+  padding: 0%;
+  margin: 0%;
+}
+.floatleft {
+  float: left;
+}
+.floatright {
+  float: right;
+}
+.center {
+  position: relative; /* where the next element will be automatically positioned */
+  display: inline-block; /* causes element width to shrink to fit content */
+  left: 50% !important; /* moves left side of image/element to center of parent element */
+  transform: translate(
+    -50%
+  ); /* centers image/element on "left: 50%" position */
+}
+
+/* Registration Style */
+input[type='text'],
+input[type='password'],
+input[type='email'] {
+  color: rgb(122, 122, 122);
+}
+
+.registration {
+  background-color: rgba(204, 209, 179, 0.753) !important;
+  height: 100%;
+  background-image: url("../img/pattern.658a43492f49.jpg");
+  background-blend-mode: overlay;
+}
+.dm_form {
+  margin-top: 50px;
+  padding: 50px;
+  max-height: 800px;
+  border: 2px rgba(185, 185, 185, 0.377) solid;
+  background-color: rgb(255, 255, 255);
+  border-radius: 15%;
+  box-shadow: 3px 3px rgba(128, 128, 128, 0.425);
+}
+.dm_form form {
+  color: rgb(165, 165, 165);
+}
+.dm_form input {
+  border-color: rgba(153, 153, 153, 0.24);
+  border-radius: 25px;
+  outline: none;
+  width: 125px;
+}
+
+.dm_form button {
+  border: hidden;
+  background-color: transparent;
+  color: rgb(6, 138, 138);
+  font-size: 15px;
+}
+
+.dm_form_title {
+  color: rgb(0, 179, 179);
+  text-align: center;
+  font-size: 30px;
+}
+#back_to_login {
+  display: inline-block;
+  text-decoration: none !important;
+  color: rgb(0, 53, 53);
+  font-size: 15px;
+}
+
+.errorlist li {
+  max-width: 200px;
+}
+
+#signup_p,
+#signup_p a {
+  font-size: 10px;
+  text-align: center;
+  color: rgb(6, 138, 138, 0.5);
+}
+
+.helptext,
+.dm_form li {
+  font-size: 10px;
+  display: block;
+  color: rgb(179, 179, 179);
+}
+
+/* Index View */
+#current_user {
+  font-weight: bold;
+  color: rgb(6, 138, 138);
+}
+#banner {
+  margin-top: 200px;
+  background-color: white;
+  text-align: center;
+}
+#banner p {
+  color: rgb(175, 175, 175);
+}
+#chat {
+  color: rgb(6, 138, 138);
+}
+
+/* Friend View */
+
+#user_list {
+  margin-top: 100px;
+}
+#user_list li {
+  margin-bottom: 50px;
+  max-width: 500px;
+}
+.user_profile {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+  height: 100px;
+  border-bottom: 0.5px solid rgba(128, 128, 128, 0.137);
+}
+.user_profile_img {
+  border-radius: 50% 50% 50% 50%;
+  width: 75px;
+  height: 75px;
+  margin-right: 50px;
+  display: inline;
+}
+.user_username {
+  color: rgb(128, 128, 128);
+  display: inline;
+  margin-right: 50px;
+  padding: 0;
+  width: 200px;
+  text-align: center;
+}
+
+.friendship_btn_div {
+  display: inline;
+  width: 200px;
+  float: right;
+  margin-top: 25px;
+}
+.friend_btn {
+  text-align: center;
+  border-radius: 25px;
+  background-color: rgb(252, 252, 252);
+  color: rgb(145, 145, 145);
+  border: 0.5px rgba(148, 148, 148, 0.432) solid;
+  font-size: 10px;
+}
+.message_btn {
+  border-radius: 25px;
+  background-color: white;
+  color: rgb(6, 138, 138);
+  border: 0.5px rgba(148, 148, 148, 0.432) solid;
+  font-size: 10px;
+}
+
+/* Current User Profile View */
+#profile_background {
+  background-color: rgba(94, 136, 143, 0.479);
+  background-image: url("../img/pattern.658a43492f49.jpg");
+  background-blend-mode: overlay;
+  margin-top: 0%;
+  padding-top: 0%;
+  height: 100%;
+}
+#profile_head {
+  width: 300px;
+  height: 300px;
+  border: 0.5px rgba(158, 157, 157, 0.384) solid;
+  border-radius: 50% 50%;
+  background-color: white;
+}
+#profile_info {
+  padding-top: 50px;
+}
+
+#update_form {
+  margin-left: 50px;
+  border: 1px rgba(128, 128, 128, 0.274) solid;
+  max-width: 300px;
+  max-height: 75px;
+  padding: 5px;
+  display: none;
+  background-color: rgba(255, 255, 255, 0.63);
+}
+#photo_submit {
+  border-radius: 25px;
+  background-color: white;
+  border: 0.5px solid rgba(128, 128, 128, 0.288);
+  font-size: 10px;
+  padding: 3px;
+  color: rgb(192, 192, 192);
+}
+
+#user_div {
+  text-align: center;
+}
+
+#current_user_h1 {
+  color: rgb(6, 138, 138);
+}
+#convo_h1 {
+  margin-top: 50px;
+}
+#convo_ul {
+  display: block;
+  text-align: center;
+  list-style: none;
+  margin-top: 50px;
+  border: 1px rgba(6, 131, 114, 0.24) solid;
+  border-radius: 10px;
+  width: 600px;
+  padding: 25px;
+}
+#no_convos {
+  display: none;
+}
+#update_img button {
+  background-color: white;
+  border-radius: 25px;
+  margin-top: 25px;
+  border: 0.5px rgb(218, 214, 214) solid;
+  font-size: 10px;
+  color: rgb(192, 192, 192);
+  margin-left: 50px;
+}
+#update_img button:hover,
+#photo_submit:hover {
+  color: rgb(6, 138, 138);
+}
+input::-webkit-file-upload-button {
+  background-color: rgb(6, 138, 138);
+  color: white;
+  padding: 5px;
+  border-radius: 25px;
+  cursor: pointer;
+  margin-top: 1rem;
+  border: 1px rgba(128, 128, 128, 0.315) solid;
+  outline: none;
+  width: 75px;
+  font-size: 10px;
+}
+#upload_prof_pic input {
+  width: 50px;
+}
+#form_btns {
+  margin-top: -50px !important;
+  float: right;
+  display: block;
+  position: relative;
+}
+
+.table {
+  width: 100%;
+  text-align: center;
+  display: table;
+}
+.col {
+  width: 25%;
+  padding: 0%;
+  display: inline-block;
+  text-align: center;
+}
+.convo_btn {
+  border: none;
+  background-color: transparent;
+}
+.convo_btn:hover {
+  color: rgb(6, 138, 138);
+}
+
+.recent_date {
+  font-size: 10px;
+  color: rgb(170, 170, 170);
+}
+.message_count {
+  border: 1px rgb(51, 51, 51) solid;
+  border-radius: 50% 50%;
+  padding: 1px;
+  font-size: 10px;
+  color: rgb(100, 100, 100);
+  width: 20px;
+  height: 20px;
+}
+.recent_message {
+  color: rgb(170, 170, 170);
+  text-overflow: ellipsis !important;
+  /* overflow: hidden; */
+  max-width: 60px !important;
+  word-wrap: break-all;
+  margin-right: 50px;
+  margin-bottom: -10px;
+}
+.convo_btn hr {
+  max-width: 500px;
+}
+/* DM View */
+#h2_to {
+  color: rgb(107, 107, 107);
+}
+.profile_img,
+.profile_img_dm {
+  border-radius: 50% 50% 50% 50%;
+  width: 75px;
+  height: 75px;
+}
+.profile_img {
+  display: inline;
+}
+.profile_img_dm {
+  display: block;
+}
+#user_to {
+  background-color: rgba(177, 177, 177, 0.253);
+  max-width: 600px;
+}
+#whole_page {
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.452);
+  background-image: url("../img/pattern.658a43492f49.jpg");
+  background-blend-mode: overlay;
+}
+#dm_header {
+  background-color: rgba(161, 161, 161, 0.281);
+  border-bottom: 2px solid rgba(82, 82, 82, 0.329);
+  margin-bottom: 0%;
+}
+
+#back {
+  margin-left: 100px;
+  font-size: 10px;
+  color: rgb(100, 100, 100);
+  text-decoration: none !important;
+}
+#dm_div {
+  max-height: 550px;
+  min-height: 550px;
+  height: 550px;
+  max-width: 500px;
+  box-sizing: content-box;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column-reverse !important;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  border: 0.1px solid rgb(165, 164, 164);
+  border-radius: 5px;
+  background-color: white;
+}
+#dm_div::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+#dm_div ul {
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-bottom: 0%;
+  padding-bottom: 10px;
+  margin-top: 0;
+}
+p.from {
+  background-color: rgba(166, 198, 201, 0.63);
+}
+p.to {
+  background-color: rgba(39, 180, 180, 0.623);
+}
+p.to,
+p.from {
+  border-right: 2px rgba(155, 155, 155, 0.123) solid;
+  border-bottom: 3px rgba(143, 143, 143, 0.233) solid;
+  border-radius: 20px;
+  padding: 20px;
+  overflow-wrap: break-word;
+  /* word-wrap: break-word; */
+  color: rgb(252, 252, 252);
+  font-size: 15px;
+  min-height: 10px;
+  margin-bottom: 5px;
+  max-width: 200px;
+  min-width: 100px;
+  display: inline-block;
+}
+p.when_from {
+  font-size: 10px;
+  display: block;
+}
+p.when_to {
+  font-size: 10px;
+  display: block;
+  text-align: right;
+}
+li.from {
+  margin-left: 10px;
+}
+li.to {
+  margin-left: 300px;
+}
+
+#message_content {
+  width: 400px;
+  border-radius: 25px;
+  border-bottom: 3px rgb(168, 168, 168, 0.644) solid;
+  border-right: 1px rgba(168, 168, 168, 0.644) solid;
+  border-top: 1px rgb(168, 168, 168, 0.644) solid;
+  border-left: 1px rgb(168, 168, 168, 0.644) solid;
+  height: 50px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 10px;
+  overflow-y: visible;
+  display: flex;
+  resize: none;
+}
+#send_message {
+  background-image: url("../img/arrow.fd18eac08c7f.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-bottom: 200px;
+  width: 50px;
+  height: 50px;
+  border-color: transparent;
+  background-color: rgba(166, 170, 170, 0.692);
+  color: rgb(117, 117, 117);
+  border-radius: 50%;
+  border-bottom-color: rgba(115, 121, 126, 0.171);
+}
+#message_content,
+#send_message {
+  display: inline-block;
+  vertical-align: top;
+  outline: none;
+}
+#keyboard {
+  padding: 10px;
+  border: 2px rgba(128, 128, 128, 0.219) solid;
+  height: 80px;
+  background-color: rgba(161, 161, 161, 0.281);
+  border-radius: 5px;
+  max-width: 600px;
+  margin-bottom: 300px;
+  width: 500px;
+  display: inline-block;
+}
+
+#resize {
+  transform: scale(0.75);
+  margin-bottom: -200px;
+  margin-top: -137px;
+}
