@@ -19,8 +19,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'pl_-rb4)up(ad#jam(khmvn4r8ic)u88urqg52xr@4e8%zm&%q'
+# SECURITY W'pl_-rb4)up(ad#jam(khmvn4r8ic)u88urqg52xr@4e8%zm&%q'ARNING: keep the secret key used in production secret!
+SECRET_KEY = os.environ.get('SECRET_KEY')
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -32,7 +33,7 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # Application definition
 
 INSTALLED_APPS = [
-    'whitenoise.runserver_nostatic',
+    # 'whitenoise.runserver_nostatic',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,12 +41,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts.apps.AccountsConfig',
-    'directMessage.apps.DirectmessageConfig'
+    'directMessage.apps.DirectmessageConfig',
+    'storages'
+    # 'upload'
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    # 'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -121,24 +124,40 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-MEDIA_URL = '/media/'
+# MEDIA_URL = '/media/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'directMessage/media')
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'directMessage/media')
 
 
-PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+# PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+
+# STATICFILES_DIRS = (
+#     os.path.join(PROJECT_ROOT, 'staticfiles'),
+
+
+# STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = (
-    os.path.join(PROJECT_ROOT, 'staticfiles'),
-)
+MEDIA_URL = '/mediafiles/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
+# if a user tries to uplaod a file with the same name as another file, cant have the file be overwritten
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+AWS_S3_REGION_NAME = 'us-east-2'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# Documentation
 
+# https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html
 
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
+print(AWS_ACCESS_KEY_ID)
 
 TEMPLATE_DIRS = [
     os.path.join(BASE_DIR, 'templates/'),
