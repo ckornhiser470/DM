@@ -155,8 +155,9 @@ AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 
 STATICFILES_LOCATION = 'static'
 STATICFILES_STORAGE = 'custom_storages.StaticStorage'
-STATIC_URL = 'https://' + AWS_STORAGE_BUCKET_NAME + '.s3.amazonaws.com/static/'
-
+STATIC_URL = 'https://' + AWS_STORAGE_BUCKET_NAME + \
+    '.s3.us-east-2.amazonaws.com/static/'
+# https://dmcassbucket.s3.us-east-2.amazonaws.com/static/img/arrow.png
 
 MEDIAFILES_LOCATION = 'media'
 DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
