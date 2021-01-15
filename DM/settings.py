@@ -150,13 +150,15 @@ USE_TZ = True
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
+AWS_DEFAULT_ACL = None
+AWS_S3_REGION_NAME = 'us-east-2'
 AWS_PRELOAD_METADATA = True
-AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.us-east-2.amazonaws.com'
 
 STATICFILES_LOCATION = 'static'
 STATICFILES_STORAGE = 'custom_storages.StaticStorage'
-STATIC_URL = 'https://' + AWS_STORAGE_BUCKET_NAME + \
-    '.s3.us-east-2.amazonaws.com/static/'
+
+STATIC_URL = 'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
 # STATIC_URL = 'https://' + AWS_STORAGE_BUCKET_NAME +
 # '.s3.us-east-2.amazonaws.com/static/'
 # https://dmcassbucket.s3.us-east-2.amazonaws.com/static/img/arrow.png
@@ -172,8 +174,7 @@ DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
 # DEFAULT_FILE_STORAGE = 'DM.storage_backends.MediaStorage'
 # # if a user tries to uplaod a file with the same name as another file, cant have the file be overwritten
 # AWS_S3_FILE_OVERWRITE = False
-AWS_DEFAULT_ACL = None
-AWS_S3_REGION_NAME = 'us-east-2'
+
 # # MEDIA_URL = '/media/'
 # STATIC_ROOT = 'staticfiles'
 # # STATIC_URL = '/static/'
