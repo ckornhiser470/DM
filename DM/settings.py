@@ -146,11 +146,11 @@ USE_TZ = True
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # MEDIA_URL = '/media/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-# STATIC_URL = '/static/'
-STATICFILES_DIRS = (
-    (os.path.join(BASE_DIR, 'directMessage/static')),
-)
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# # STATIC_URL = '/static/'
+# STATICFILES_DIRS = (
+#     (os.path.join(BASE_DIR, 'directMessage/static')),
+# )
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
@@ -163,7 +163,7 @@ AWS_REGION = 'us-east-2'
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
-AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+# AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
 STATICFILES_LOCATION = 'static'
 STATIC_URL = 'https://s3-%s.amazonaws.com/%s/static/' % (
     AWS_REGION, AWS_STORAGE_BUCKET_NAME)
