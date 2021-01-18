@@ -158,7 +158,7 @@ def conversations(request, user):
     if len(messages) == 0:
         return JsonResponse({"message": "No messages"}, safe=False)
     else:
-        return JsonResponse({"message": len(messages)}, safe=False)
+        return JsonResponse({"message": "Has messages!"}, safe=False)
 
 
 # Messaging Functions
@@ -174,6 +174,7 @@ def message(request, username):
             for conv in this_convo:
                 user_messages = Messages.objects.filter(conversation=conv)
             return JsonResponse([message.serialize() for message in user_messages], safe=False)
+            # return JsonResponse({"message": len(this_convo)}, status=201)
         else:
             new_convo = Conversations.objects.create()
             new_convo.members.add(user_id)

@@ -18,8 +18,8 @@ async function getAllUsers() {
 async function getConvo(username) {
   try {
     const response = await fetch(`/message/${username}`);
-    const messages = await response.json();
-    return messages;
+    const himessages = await response.json();
+    return himessages;
   } catch (error) {
     console.log(error);
   }
@@ -103,10 +103,11 @@ async function friendshipStatus(friendID) {
 async function displayConvos(friend) {
   //Retrieves profile object for friend
   const friendInfo = await profileUser(friend);
+  console.log(friendInfo);
   const ul = document.querySelector('#convo_ul');
   //Retrieves the conversation object between the current user and friend with all of their messages
   const currentConvoObj = await getConvo(friend);
-
+  console.log(currentConvoObj);
   //Index for most recent message for preview on the profile page
   const currentConvo = currentConvoObj[currentConvoObj.length - 1];
   const recentMessage = currentConvo.message;
@@ -139,11 +140,12 @@ async function profilePage(user) {
   document.querySelector(
     '#user_pic'
   ).innerHTML = `<img class="profile_img" src="${user.profile_image}"></img>`;
-
+  console.log(response);
   // If the current user has no current conversations, "No messages yet!" is displayed on the profile page
   if (response.message === 'No messages') {
     document.getElementById('no_convos').style.display = 'block';
   }
+
   // Else, each conversation the current user has with a friend will be displayed using displayConvo()
   user.friends.forEach(displayConvos);
 }
